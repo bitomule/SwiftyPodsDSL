@@ -33,7 +33,7 @@ extension ChildTarget {
             Line(tabs: tabs + 1, content: "project '\(project)'"),
         ]
         if inheritSearchPaths {
-            lines += [Line(tabs: tabs + 1, content: "\ninherit! :search_paths")]
+            lines += [Line(tabs: tabs + 1, content: "inherit! :search_paths")]
         }
         lines = lines +
         dependencies.map { $0.toString(tabs: tabs + 1) } +
