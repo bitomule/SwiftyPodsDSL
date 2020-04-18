@@ -1,4 +1,14 @@
 ![Swift](https://github.com/bitomule/SwiftyPodsDSL/workflows/Swift/badge.svg)
+<p align="left">
+    <img src="https://img.shields.io/badge/Swift-5.2-orange.svg" />
+    <a href="https://swift.org/package-manager">
+        <img src="https://img.shields.io/badge/swiftpm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
+    </a>
+     <img src="https://img.shields.io/badge/platforms-mac+linux-brightgreen.svg?style=flat" alt="Mac + Linux" />
+    <a href="https://twitter.com/bitomule">
+        <img src="https://img.shields.io/badge/twitter-@bitomule-blue.svg?style=flat" alt="Twitter: @bitomule" />
+    </a>
+</p>
 
 SwiftyPodsDSL is a domain-specific language (DSL) for writing type-safe CocoaPods podfiles in Swift. It can be used as an independent Swift package to render a plain String containing your podfile declared using Swift
 
