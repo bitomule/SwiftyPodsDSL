@@ -11,6 +11,6 @@ extension Array where Element == Line {
     }
     
     private func tabs(count: Int) -> String {
-        Array<String>(repeating: "\t", count: count).joined()
+        Array<String>(repeating: "    ", count: count).joined()
     }
 }

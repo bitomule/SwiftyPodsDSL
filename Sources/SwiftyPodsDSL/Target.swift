@@ -30,7 +30,8 @@ extension Target {
             Line(tabs: tabs + 1, content: "project '\(project)'")
         ] +
         dependencies.map { $0.toString(tabs: tabs + 1) } +
-        childTargets.map { $0.toString(tabs: tabs + 1) }.flatMap { $0 }
+        childTargets.map { $0.toString(tabs: tabs + 1) }.flatMap { $0 } +
+        [Line(tabs: tabs, content: "end")]
     }
 }
 

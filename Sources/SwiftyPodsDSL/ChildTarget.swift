@@ -37,7 +37,8 @@ extension ChildTarget {
         }
         lines = lines +
         dependencies.map { $0.toString(tabs: tabs + 1) } +
-        childTargets.map { $0.toString(tabs: tabs + 1) }.flatMap { $0 }
+        childTargets.map { $0.toString(tabs: tabs + 1) }.flatMap { $0 } +
+        [Line(tabs: tabs, content: "end")]
         
         return lines
     }
