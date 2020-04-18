@@ -23,6 +23,6 @@ public struct DependencyProperty: Encodable  {
 
 extension DependencyProperty{
     func toString() -> String {
-        ":\(key)  => '\(value)'"
+        ":\(key) => '\(value)'"
     }
 }
