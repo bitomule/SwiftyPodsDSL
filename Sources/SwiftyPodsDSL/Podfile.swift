@@ -10,6 +10,6 @@ public struct Podfile {
 
 public extension Podfile {
     func toString() -> String {
-        targets.map { $0.toString() }.joined(separator: "\n")
+        "\t" + targets.map { $0.toString() }.joined(separator: "\n\t")
     }
 }

@@ -23,6 +23,6 @@ public struct DependencyProperty {
 
 public extension DependencyProperty {
     func toString() -> String {
-        ":\(key)  => \(value)"
+        ":\(key)  => '\(value)'"
     }
 }

@@ -20,11 +20,11 @@ public struct Dependency {
 
 public extension Dependency {
     func toString() -> String {
-        var podLine = "pod \(name)"
+        var podLine = "pod '\(name)'"
         if let version = version {
-            podLine += ", \(version)"
+            podLine += ", '\(version)'"
         }
-        podLine += properties.map { $0.toString() }.joined(separator: ", ")
+        podLine += " " + properties.map { $0.toString() }.joined(separator: ", ")
         return podLine
     }
 }
