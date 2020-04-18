@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Dependency {
+public struct Dependency: Encodable  {
     public let name: String
     public let version: String?
     public let properties: [DependencyProperty]
@@ -18,13 +18,13 @@ public struct Dependency {
     }
 }
 
-public extension Dependency {
-    func toString() -> String {
+extension Dependency {
+    func toString(tabs: Int) -> Line {
         var podLine = "pod '\(name)'"
         if let version = version {
             podLine += ", '\(version)'"
         }
         podLine += " " + properties.map { $0.toString() }.joined(separator: ", ")
-        return podLine
+        return Line(tabs: tabs, content: podLine)
     }
 }

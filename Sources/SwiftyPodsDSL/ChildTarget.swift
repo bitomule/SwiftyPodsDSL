@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ChildTarget {
+public struct ChildTarget: Encodable  {
     public let name: String
     public let project: String
     public let inheritSearchPaths: Bool
@@ -26,20 +26,19 @@ public struct ChildTarget {
     }
 }
 
-public extension ChildTarget {
-    func toString() -> String {
-        var target = """
-            target '\(name)' do
-            project '\(project)'
-        """
+extension ChildTarget {
+    func toString(tabs: Int) -> [Line] {
+        var lines = [
+            Line(tabs: tabs, content: "target '\(name)' do"),
+            Line(tabs: tabs + 1, content: "project '\(project)'"),
+        ]
         if inheritSearchPaths {
-            target += "\ninherit! :search_paths\n"
+            lines += [Line(tabs: tabs + 1, content: "\ninherit! :search_paths")]
         }
-        target += """
-            \(dependencies.map { $0.toString() }.joined(separator: "\n"))
-            \(childTargets.map { $0.toString() }.joined(separator: "\n"))
-        end
-        """
-        return target
+        lines = lines +
+        dependencies.map { $0.toString(tabs: tabs + 1) } +
+        childTargets.map { $0.toString(tabs: tabs + 1) }.flatMap { $0 }
+        
+        return lines
     }
 }

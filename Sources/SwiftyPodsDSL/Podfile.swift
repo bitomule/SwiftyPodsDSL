@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Podfile {
+public struct Podfile: Encodable  {
     public let targets: [Target]
     
     public init(targets: [Target]) {
@@ -10,6 +10,6 @@ public struct Podfile {
 
 public extension Podfile {
     func toString() -> String {
-        "\t" + targets.map { $0.toString() }.joined(separator: "\n\t")
+        targets.map { $0.toString(tabs: 0) }.flatMap { $0 }.render()
     }
 }

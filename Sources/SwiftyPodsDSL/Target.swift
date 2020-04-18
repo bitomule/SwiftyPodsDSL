@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Target {
+public struct Target: Encodable  {
     public let name: String
     public let project: String
     public let dependencies: [Dependency]
@@ -23,15 +23,14 @@ public struct Target {
     }
 }
 
-public extension Target {
-    func toString() -> String {
-        """
-        target '\(name)' do
-            project '\(project)'
-            \(dependencies.map { $0.toString() }.joined(separator: "\n"))
-            \(childTargets.map { $0.toString() }.joined(separator: "\n"))
-        end
-        """
+extension Target {
+    func toString(tabs: Int) -> [Line] {
+        [
+            Line(tabs: tabs, content: "target '\(name)' do"),
+            Line(tabs: tabs + 1, content: "project '\(project)'")
+        ] +
+        dependencies.map { $0.toString(tabs: tabs + 1) } +
+        childTargets.map { $0.toString(tabs: tabs + 1) }.flatMap { $0 }
     }
 }
 

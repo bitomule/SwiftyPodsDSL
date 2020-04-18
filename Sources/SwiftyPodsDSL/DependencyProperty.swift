@@ -1,6 +1,6 @@
 import Foundation
 
-public struct DependencyProperty {
+public struct DependencyProperty: Encodable  {
     let key: String
     let value: String
     
@@ -21,7 +21,7 @@ public struct DependencyProperty {
     }
 }
 
-public extension DependencyProperty {
+extension DependencyProperty{
     func toString() -> String {
         ":\(key)  => '\(value)'"
     }
