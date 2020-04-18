@@ -4,13 +4,13 @@ public struct Target {
     public let name: String
     public let project: String
     public let dependencies: [Dependency]
-    public let childTargets: [Target]
+    public let childTargets: [ChildTarget]
     
     private init(
         name: String,
         project: String,
         dependencies: [Dependency],
-        childTargets: [Target] = []
+        childTargets: [ChildTarget]
     ) {
         self.name = name
         self.project = project
@@ -18,8 +18,8 @@ public struct Target {
         self.childTargets = childTargets
     }
     
-    public static func target(name: String, project: String, dependencies: [Dependency]) -> Target {
-        Target(name: name, project: project, dependencies: dependencies)
+    public static func target(name: String, project: String, dependencies: [Dependency] = [], childTargets: [ChildTarget] = []) -> Target {
+        Target(name: name, project: project, dependencies: dependencies, childTargets: childTargets)
     }
 }
 
