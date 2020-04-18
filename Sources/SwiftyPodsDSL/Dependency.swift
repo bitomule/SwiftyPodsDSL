@@ -24,6 +24,7 @@ public extension Dependency {
         if let version = version {
             podLine += ", \(version)"
         }
+        podLine += properties.map { $0.toString() }.joined(separator: ", ")
         return podLine
     }
 }

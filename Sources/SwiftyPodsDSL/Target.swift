@@ -23,3 +23,15 @@ public struct Target {
     }
 }
 
+public extension Target {
+    func toString() -> String {
+        """
+        target '\(name)' do
+        project '\(project)'
+        \(dependencies.map { $0.toString() }.joined(separator: "\n"))
+        \(childTargets.map { $0.toString() }.joined(separator: "\n"))
+        end
+        """
+    }
+}
+

@@ -20,3 +20,9 @@ public struct DependencyProperty {
         DependencyProperty(key: "path", value: path)
     }
 }
+
+public extension DependencyProperty {
+    func toString() -> String {
+        ":\(key)  => \(value)"
+    }
+}

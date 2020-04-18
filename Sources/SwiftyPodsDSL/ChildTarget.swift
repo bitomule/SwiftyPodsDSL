@@ -25,3 +25,21 @@ public struct ChildTarget {
         ChildTarget(name: name, project: project, inheritSearchPaths: inheritSearchPaths, dependencies: dependencies, childTargets: childTargets)
     }
 }
+
+public extension ChildTarget {
+    func toString() -> String {
+        var target = """
+            target '\(name)' do
+            project '\(project)'
+        """
+        if inheritSearchPaths {
+            target += "\ninherit! :search_paths\n"
+        }
+        target += """
+            \(dependencies.map { $0.toString() }.joined(separator: "\n"))
+            \(childTargets.map { $0.toString() }.joined(separator: "\n"))
+        end
+        """
+        return target
+    }
+}
