@@ -19,7 +19,7 @@ public struct Dependency: Encodable  {
 }
 
 extension Dependency {
-    func toString(tabs: Int) -> Line {
+    func render(tabs: Int) -> Line {
         var podLine = "pod '\(name)'"
         if let version = version {
             podLine += ", '\(version)'"
@@ -27,7 +27,7 @@ extension Dependency {
         if properties.count > 0 {
             podLine += ", "
         }
-        podLine += properties.map { $0.toString() }.joined(separator: ", ")
+        podLine += properties.map { $0.render() }.joined(separator: ", ")
         return Line(tabs: tabs, content: podLine)
     }
 }

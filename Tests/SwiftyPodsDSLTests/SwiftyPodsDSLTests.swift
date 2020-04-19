@@ -4,18 +4,18 @@ import XCTest
 final class SwiftyPodsDSLTests: XCTestCase {
     func testDependencyPropertyGeneratesExpectedString() {
         let property = DependencyProperty(key: "git", value: "repoHere")
-        XCTAssertEqual(property.toString(), ":git => 'repoHere'")
+        XCTAssertEqual(property.render(), ":git => 'repoHere'")
     }
     
     func testDependencyWithVersionGeneratesExpectedString() {
         let dependency = Dependency(name: "aName", version: "1.2.3", properties: [])
-        XCTAssertEqual(dependency.toString(tabs: 0).content, "pod 'aName', '1.2.3'")
+        XCTAssertEqual(dependency.render(tabs: 0).content, "pod 'aName', '1.2.3'")
     }
     
     func testDependencyWithVersionAndDependenciesGeneratesExpectedString() {
         let property = DependencyProperty(key: "git", value: "repoHere")
         let dependency = Dependency(name: "aName", version: "1.2.3", properties: [property,property])
-        XCTAssertEqual(dependency.toString(tabs: 0).content, "pod 'aName', '1.2.3', :git => 'repoHere', :git => 'repoHere'")
+        XCTAssertEqual(dependency.render(tabs: 0).content, "pod 'aName', '1.2.3', :git => 'repoHere', :git => 'repoHere'")
     }
     
     func testTargetGeneratesExpectedString() {
@@ -25,7 +25,7 @@ target 'targetName' do
     project 'projectFile.xproj'
 end
 """
-        XCTAssertEqual(target.toString(tabs: 0).render(), expected)
+        XCTAssertEqual(target.render(tabs: 0).render(), expected)
     }
     
     func testTargetWithTabsGeneratesExpectedString() {
@@ -35,7 +35,7 @@ end
             project 'projectFile.xproj'
         end
     """
-            XCTAssertEqual(target.toString(tabs: 1).render(), expected)
+            XCTAssertEqual(target.render(tabs: 1).render(), expected)
         }
     
     func testTargetWithDependencyGeneratesExpectedString() {
@@ -47,7 +47,7 @@ end
         pod 'aName', '1.2.3'
     end
     """
-        XCTAssertEqual(target.toString(tabs: 0).render(), expected)
+        XCTAssertEqual(target.render(tabs: 0).render(), expected)
     }
     
     func testTargetWithChildGeneratesExpectedString() {
@@ -61,7 +61,7 @@ end
         end
     end
     """
-        XCTAssertEqual(target.toString(tabs: 0).render(), expected)
+        XCTAssertEqual(target.render(tabs: 0).render(), expected)
     }
     
     func testChildTargetGeneratesExpectedString() {
@@ -71,7 +71,7 @@ end
         project 'childProject.xproj'
     end
     """
-        XCTAssertEqual(child.toString(tabs: 0).render(), expected)
+        XCTAssertEqual(child.render(tabs: 0).render(), expected)
     }
     
     func testChildTargetWithPathsGeneratesExpectedString() {
@@ -82,7 +82,7 @@ end
         inherit! :search_paths
     end
     """
-        XCTAssertEqual(child.toString(tabs: 0).render(), expected)
+        XCTAssertEqual(child.render(tabs: 0).render(), expected)
     }
     
     func testPodfileGeneratesExpectedString() {
@@ -93,7 +93,7 @@ end
             project 'projectFile.xproj'
         end
         """
-        XCTAssertEqual(podfile.toString(), expected)
+        XCTAssertEqual(podfile.render(), expected)
     }
 
     static var allTests = [

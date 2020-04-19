@@ -9,7 +9,7 @@ public struct Podfile: Encodable  {
 }
 
 public extension Podfile {
-    func toString() -> String {
-        targets.map { $0.toString(tabs: 0) }.flatMap { $0 }.render()
+    func render() -> String {
+        targets.map { $0.render(tabs: 0) }.flatMap { $0 }.render()
     }
 }

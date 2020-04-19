@@ -13,7 +13,7 @@ public struct ChildTarget: Encodable  {
 }
 
 extension ChildTarget {
-    func toString(tabs: Int) -> [Line] {
+    func render(tabs: Int) -> [Line] {
         var lines = [
             Line(tabs: tabs, content: "target '\(name)' do"),
             Line(tabs: tabs + 1, content: "project '\(project)'"),
@@ -22,8 +22,8 @@ extension ChildTarget {
             lines += [Line(tabs: tabs + 1, content: "inherit! :search_paths")]
         }
         lines = lines +
-        dependencies.map { $0.toString(tabs: tabs + 1) } +
-        childTargets.map { $0.toString(tabs: tabs + 1) }.flatMap { $0 } +
+        dependencies.map { $0.render(tabs: tabs + 1) } +
+        childTargets.map { $0.render(tabs: tabs + 1) }.flatMap { $0 } +
         [Line(tabs: tabs, content: "end")]
         
         return lines

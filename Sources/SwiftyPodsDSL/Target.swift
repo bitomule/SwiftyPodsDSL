@@ -12,13 +12,13 @@ public struct Target: Encodable  {
 }
 
 extension Target {
-    func toString(tabs: Int) -> [Line] {
+    func render(tabs: Int) -> [Line] {
         [
             Line(tabs: tabs, content: "target '\(name)' do"),
             Line(tabs: tabs + 1, content: "project '\(project)'")
         ] +
-        dependencies.map { $0.toString(tabs: tabs + 1) } +
-        childTargets.map { $0.toString(tabs: tabs + 1) }.flatMap { $0 } +
+        dependencies.map { $0.render(tabs: tabs + 1) } +
+        childTargets.map { $0.render(tabs: tabs + 1) }.flatMap { $0 } +
         [Line(tabs: tabs, content: "end")]
     }
 }

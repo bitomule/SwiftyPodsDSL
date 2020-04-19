@@ -22,7 +22,7 @@ public struct DependencyProperty: Encodable  {
 }
 
 extension DependencyProperty{
-    func toString() -> String {
+    func render() -> String {
         ":\(key) => '\(value)'"
     }
 }
