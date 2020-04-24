@@ -3,7 +3,7 @@ import XCTest
 
 final class SwiftyPodsDSLTests: XCTestCase {
     func testDependencyPropertyGeneratesExpectedString() {
-        let property = DependencyProperty(key: "git", value: "repoHere")
+        let property = DependencyProperty.git(url: "repoHere")
         XCTAssertEqual(property.render(), ":git => 'repoHere'")
     }
     
@@ -13,9 +13,15 @@ final class SwiftyPodsDSLTests: XCTestCase {
     }
     
     func testDependencyWithVersionAndDependenciesGeneratesExpectedString() {
-        let property = DependencyProperty(key: "git", value: "repoHere")
+        let property = DependencyProperty.git(url: "repoHere")
         let dependency = Dependency(name: "aName", version: "1.2.3", properties: [property,property])
         XCTAssertEqual(dependency.render(tabs: 0).content, "pod 'aName', '1.2.3', :git => 'repoHere', :git => 'repoHere'")
+    }
+    
+    func testDependencyWithTestSpecsGeneratesExpectedString() {
+        let property = DependencyProperty.testsspecs(["testA", "testB"])
+        let dependency = Dependency(name: "aName", properties: [property])
+        XCTAssertEqual(dependency.render(tabs: 0).content, "pod 'aName', :testspecs => ['testA', 'testB']")
     }
     
     func testTargetGeneratesExpectedString() {
