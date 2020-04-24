@@ -19,6 +19,10 @@ public struct DependencyProperty: Encodable  {
     public static func path(path: String) -> DependencyProperty {
         DependencyProperty(key: "path", value: path)
     }
+    
+    public static func tag(_ tag: String) -> DependencyProperty {
+        DependencyProperty(key: "tag", value: tag)
+    }
 }
 
 extension DependencyProperty{
