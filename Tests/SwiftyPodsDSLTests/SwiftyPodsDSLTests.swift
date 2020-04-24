@@ -8,7 +8,7 @@ final class SwiftyPodsDSLTests: XCTestCase {
     }
     
     func testDependencyWithVersionGeneratesExpectedString() {
-        let dependency = Dependency(name: "aName", version: "1.2.3", properties: [])
+        let dependency = Dependency(name: "aName", version: "1.2.3")
         XCTAssertEqual(dependency.render(tabs: 0).content, "pod 'aName', '1.2.3'")
     }
     

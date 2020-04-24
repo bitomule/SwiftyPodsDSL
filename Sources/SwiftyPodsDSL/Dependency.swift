@@ -1,20 +1,62 @@
 import Foundation
 
 public struct Dependency: Encodable  {
-    public let name: String
-    public let version: String?
-    public let properties: [DependencyProperty]
+    let name: String
+    let version: String?
+    let properties: [DependencyProperty]
     
+    public init(name: String, version: String) {
+        self.name = name
+        self.version = version
+        self.properties = []
+    }
+    
+    public init(name: String) {
+        self.name = name
+        self.version = nil
+        self.properties = []
+    }
+    
+    public init(name: String, _ properties: DependencyProperty...) {
+        self.name = name
+        self.version = nil
+        self.properties = properties
+    }
+    
+    public init(name: String, properties: [DependencyProperty]) {
+        self.name = name
+        self.version = nil
+        self.properties = properties
+    }
+    
+    public init(name: String, version: String, _ properties: DependencyProperty...) {
+        self.name = name
+        self.version = version
+        self.properties = properties
+    }
+    
+    public init(name: String, version: String, properties: [DependencyProperty]) {
+        self.name = name
+        self.version = version
+        self.properties = properties
+    }
+}
+
+extension Dependency {
     public static func dependency(name: String, version: String) -> Dependency {
-        Dependency(name: name, version: version, properties: [])
+        Dependency(name: name, version: version)
     }
     
     public static func dependency(name: String) -> Dependency {
-        Dependency(name: name, version: nil, properties: [])
+        Dependency(name: name)
     }
     
     public static func dependency(name: String, _ properties: DependencyProperty...) -> Dependency {
-        Dependency(name: name, version: nil, properties: properties)
+        Dependency(name: name, properties: properties)
+    }
+    
+    public static func dependency(name: String, version: String, _ properties: DependencyProperty...) -> Dependency {
+        Dependency(name: name, version: version, properties: properties)
     }
 }
 
