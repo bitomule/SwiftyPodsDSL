@@ -19,7 +19,7 @@ final class SwiftyPodsDSLTests: XCTestCase {
     }
     
     func testTargetGeneratesExpectedString() {
-        let target = Target(name: "targetName", project: "projectFile.xproj", dependencies: [], childTargets: [])
+        let target = Target(name: "targetName", project: "projectFile.xproj")
         let expected = """
 target 'targetName' do
     project 'projectFile.xproj'
@@ -29,7 +29,7 @@ end
     }
     
     func testTargetWithTabsGeneratesExpectedString() {
-            let target = Target(name: "targetName", project: "projectFile.xproj", dependencies: [], childTargets: [])
+            let target = Target(name: "targetName", project: "projectFile.xproj")
             let expected = """
         target 'targetName' do
             project 'projectFile.xproj'
@@ -50,9 +50,21 @@ end
         XCTAssertEqual(target.render(tabs: 0).render(), expected)
     }
     
+    func testTargetWithDependencyArrayGeneratesExpectedString() {
+        let dependency = Dependency(name: "aName", version: "1.2.3", properties: [])
+        let target = Target(name: "targetName", project: "projectFile.xproj", dependencies: [[dependency]], childTargets: [])
+        let expected = """
+    target 'targetName' do
+        project 'projectFile.xproj'
+        pod 'aName', '1.2.3'
+    end
+    """
+        XCTAssertEqual(target.render(tabs: 0).render(), expected)
+    }
+    
     func testTargetWithChildGeneratesExpectedString() {
         let child = ChildTarget(name: "childTarget", project: "childProject.xproj", inheritSearchPaths: false, dependencies: [], childTargets: [])
-        let target = Target(name: "targetName", project: "projectFile.xproj", dependencies: [], childTargets: [child])
+        let target = Target(name: "targetName", project: "projectFile.xproj", childTargets: [child])
         let expected = """
     target 'targetName' do
         project 'projectFile.xproj'
@@ -86,7 +98,7 @@ end
     }
     
     func testPodfileGeneratesExpectedString() {
-        let target = Target(name: "targetName", project: "projectFile.xproj", dependencies: [], childTargets: [])
+        let target = Target(name: "targetName", project: "projectFile.xproj")
         let podfile = Podfile(targets: [target])
         let expected = """
         target 'targetName' do
